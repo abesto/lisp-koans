@@ -49,9 +49,26 @@
 ;
 ; Your goal is to write the score method.
 
+(defun count-rolls (dice)
+  (let ((counts (make-hash-table)))
+    (loop for roll from 1 to 6 do (setf (gethash roll counts) 0))
+    (dolist (roll dice)
+      (incf (gethash roll counts)))
+    counts))
+
 (defun score (dice)
-  ; You need to write this method
-)
+  (let ((score 0))
+    (loop for roll being the hash-keys in (count-rolls dice)
+         using (hash-value count) sum
+         (multiple-value-bind (triplets rest) (floor count 3)
+           (+
+            (* triplets roll (cond
+                               ((= 1 roll) 1000)
+                               (t 100)))
+            (* rest (cond
+                      ((= 5 roll) 50)
+                      ((= 1 roll) 100)
+                      (t 0))))))))
 
 (define-test test-score-of-an-empty-list-is-zero
     (assert-equal 0 (score nil)))
