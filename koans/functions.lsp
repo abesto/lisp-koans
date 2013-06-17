@@ -81,7 +81,7 @@
 (defun func-with-key-params (&key a b)
   (list a b))
 
-(defun test-key-params ()
+(define-test test-key-params ()
   "Key params allow the user to specify params in any order"
    (assert-equal (func-with-key-params) '(nil nil))
    (assert-equal (func-with-key-params :a 11 :b 22) '(11 22))
@@ -106,7 +106,7 @@
 ;; ----
 
 
-;; borrowed from common listp the language 5.2.2
+;; borrowed from common lisp the language 5.2.2
 (defun func-with-funky-parameters (a &rest x &key b (c a))
    (list a b c x))
 
@@ -166,7 +166,7 @@
   This function will add n to its argument."
   (lambda (y) (+ x y)))
 
-(defun test-lexical-closure-over-adder ()
+(define-test test-lexical-closure-over-adder ()
   (let ((add-100 (adder 100))
         (add-500 (adder 500)))
   "add-100 and add-500 now refer to different bindings to x"

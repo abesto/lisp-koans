@@ -113,5 +113,5 @@
 ;; ----
 
 (define-test test-mapcar-with-lambda
-    (let ((mc-result (mapcar #'(lambda (x) (mod x 10)) '(21 152 403 14))))
+    (let ((mc-result (mapcar (lambda (x) (mod x 10)) '(21 152 403 14))))
       (assert-equal mc-result '(1 2 3 4))))

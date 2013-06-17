@@ -14,7 +14,7 @@
 
 
 ;; based on python koans 'about_lists.py'
-;; based also on "Lisp 3rd addition" ch. 17. "List storage, surgery and reclamation"
+;; based also on "Lisp 3rd Edition" ch. 17. "List storage, surgery and reclamation"
 
 
 (define-test test-creating-lists
@@ -24,7 +24,7 @@
     (setf fruits '(orange pomello clementine))
     (setf some-evens (list (* 2 1) (* 2 2) (* 2 3)))
     (assert-equal fruits '(orange pomello clementine))
-    (assert-equal 3 (length fruits))))
+    (assert-equal 3 (length some-evens))))
 
 
 (define-test test-list-cons
@@ -65,7 +65,7 @@
 
 
 (define-test test-append
-    "append attatches one list ot the end of another."
+    "append attaches one list to the end of another."
   (assert-equal '(:a :b :c) (append '(:a :b) '(:c)))
 
   (let ((abc '(:a :b :c))

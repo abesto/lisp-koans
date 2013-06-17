@@ -9,7 +9,7 @@ Running on a fresh version should output the following:
 
 ```
 Thinking about ASSERTS
-    ASSERT-TRUE has damaged your karma.
+    ASSERT-TRUE requires more meditation.
 
 You have not yet reached enlightenment ...
   A koan is incomplete.
@@ -19,12 +19,12 @@ Please meditate on the following code:
    Koan "ASSERT-TRUE"
    Current koan assert status is "(INCOMPLETE)"
 
-You are now 0/169 koans and 0/25 lessons away from reaching enlightenment
+You are now 0/169 koans and 0/25 lessons closer to reaching enlightenment
 ```
 
 This indicates that the script has completed, and that the learner should look
 to asserts.lsp to locate and fix the problem.  The problem will be within 
-a define-test block such as
+a define-test expression such as
 
     (define-test assert-true
         "t is true.  Replace the blank with a t"
@@ -43,7 +43,7 @@ Quoting the Ruby Koans instructions::
    "In test-driven development the mantra has always been, red, green, 
 refactor. Write a failing test and run it (red), make the test pass (green),
 then refactor it (that is look at the code and see if you can make it any
-better. In this case you will need to run the koan and see it fail (red), make
+better). In this case you will need to run the koan and see it fail (red), make
 the test pass (green), then take a moment and reflect upon the test to see what
 it is teaching you and improve the code to better communicate its
 intent (refactor)."
@@ -55,4 +55,5 @@ The Common Lisp koans are based on the python koans and ruby koans projects.
 Additionally, many of the tests are based on new material that is special
 to Common Lisp.
 
-Note that the unit on threads uses an SBCL specific threading API.
+Note that the unit on threads uses an SBCL specific threading API.  A reader
+macro will remove this unit on Lisp implementations other than SBCL.

@@ -21,7 +21,7 @@
 (defpackage :lisp-koans
   (:use :common-lisp)
   (:use :lisp-unit)
-  (:use :sb-ext))
+  #+sbcl (:use :sb-ext))
 
 (in-package :lisp-koans)
 
@@ -53,8 +53,9 @@
   (let ((koan-file-name (concatenate 'string (string-downcase (string koan-group-name)) ".lsp")))
     (if *dp-loading* (format t "start loading ~A ~%" koan-file-name))
     (in-package :lisp-koans)
-    (make-package koan-group-name
-        :use '(:common-lisp :lisp-unit :sb-ext))
+    (unless (find-package koan-group-name)
+      (make-package koan-group-name
+                    :use '(:common-lisp :lisp-unit #+sbcl :sb-ext)))
     (setf *package* (find-package koan-group-name))
     (load (concatenate 'string *koan-dir-name* "/" koan-file-name))
     (incf *n-total-koans* (length (list-tests)))
@@ -84,7 +85,7 @@
                      (second k-result))))
     (if all-pass-p
         (format t "~A has expanded your awareness.~%" koan-name)
-        (format t "~A has damaged your karma.~%" koan-name))))
+        (format t "~A requires more meditation.~%" koan-name))))
 
 (defun print-koan-group-progress (kg-name kg-results)
   (format t "~%Thinking about ~A~%" kg-name)
@@ -140,8 +141,12 @@
     (format t "   Current koan assert status is \"~A\"~%" (reverse koan-status))))
 
 (defun print-completion-message ()
-  (format t "That was the last one, well done!~%")
-  (format t "If you want more, take a look at extra-credit.lsp~%"))
+  (format t "**********************************************************~%")
+  (format t "That was the last one, well done!  ENLIGHTENMENT IS YOURS!~%")
+  (format t "**********************************************************~%~%")
+  (format t "If you demand greater challenge, take a look at extra-credit.lsp~%")
+  (format t "Or, let the student become the teacher:~%")
+  (format t "   Write and submit your own improvements to github.com/google/lisp-koans!~%"))
 
 (defun n-completed-koans (collected-results)
   (loop for kg in collected-results
@@ -164,7 +169,7 @@
         finally (return partial-sum)))
 
 (defun print-progress-message ()
-      (format t "You are now ~A/~A koans and ~A/~A lessons away from reaching enlightenment~%~%"
+      (format t "You are now ~A/~A koans and ~A/~A lessons closer to reaching enlightenment~%~%"
               (n-passed-koans-overall *collected-results*)
               *n-total-koans*
               (- (length *collected-results*) 1)
