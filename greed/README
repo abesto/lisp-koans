@@ -1,0 +1,5 @@
+Run tests with
+sbcl --script test.lsp
+
+Run a simulation between stupid AI players with
+sbcl --script simulate.lsp
